@@ -1,6 +1,6 @@
 module github.com/hyperlink/NAMEinator
 
-go 1.16
+go 1.24
 
 require (
 	github.com/cheggaaa/pb/v3 v3.0.8
