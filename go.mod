@@ -1,4 +1,4 @@
-module NAMEinator
+module github.com/mrwiora/NAMEinator
 
 go 1.16
 
