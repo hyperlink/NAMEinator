@@ -177,6 +177,15 @@ func main() {
 	// let's go benchmark - iterate through all domains
 	fmt.Println("LETS GO")
 
+	// Check if we have domains to test
+	if len(dStore.d) == 0 {
+		fmt.Println("No domains available for testing. Please make sure the domains file exists.")
+		fmt.Println("You can create an 'alexa-top-2000-domains.txt' file in the datasrc directory")
+		fmt.Println("with one domain per line.")
+		printBye()
+		return
+	}
+
 	performBenchmark(nsStore, dStore)
 
 	// benchmark has been completed - now we have to tell the results and say good bye

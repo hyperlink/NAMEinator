@@ -26,8 +26,24 @@ func prepareBenchmarkDomains(dStore *dInfoMap) {
 	fmt.Println("trying to load domains from alexa-top-2000-domains")
 	allDomains, err := readLoadDomainsFromFile("datasrc/alexa-top-2000-domains.txt")
 	if err != nil {
-		fmt.Println("File not found")
-		return
+		fmt.Println("File not found: datasrc/alexa-top-2000-domains.txt")
+		// Try without the .txt extension
+		allDomains, err = readLoadDomainsFromFile("datasrc/alexa-top-2000-domains")
+		if err != nil {
+			fmt.Println("File not found: datasrc/alexa-top-2000-domains")
+			// Try in the current directory
+			allDomains, err = readLoadDomainsFromFile("alexa-top-2000-domains.txt")
+			if err != nil {
+				fmt.Println("File not found: alexa-top-2000-domains.txt")
+				// Try without the .txt extension
+				allDomains, err = readLoadDomainsFromFile("alexa-top-2000-domains")
+				if err != nil {
+					fmt.Println("File not found: alexa-top-2000-domains")
+					fmt.Println("Please create a domains file with one domain per line.")
+					return
+				}
+			}
+		}
 	}
 	_ = err // TODO: Exception handling in case that the files do not exist
 	// randomize domains from file to avoid cached results

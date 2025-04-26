@@ -57,9 +57,16 @@ func nsStoreGetMeasurement(nsStore *nsInfoMap, ipAddr string) NInfo {
 		// add for total time
 		total += value
 	}
-	nsMeasurement.rttAvg = total / time.Duration(len(entry.rtt))
-	nsMeasurement.rttMin = min
-	nsMeasurement.rttMax = max
+	if len(entry.rtt) > 0 {
+		nsMeasurement.rttAvg = total / time.Duration(len(entry.rtt))
+		nsMeasurement.rttMin = min
+		nsMeasurement.rttMax = max
+	} else {
+		// If no RTT data is available, set all values to zero
+		nsMeasurement.rttAvg = 0
+		nsMeasurement.rttMin = 0
+		nsMeasurement.rttMax = 0
+	}
 	return nsMeasurement
 }
 
